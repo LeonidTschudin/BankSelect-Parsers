@@ -10,8 +10,6 @@ import warnings
 
 from urllib3.exceptions import InsecureRequestWarning
 
-# Убираем sys.setrecursionlimit, так как будем использовать итеративный подход
-# sys.setrecursionlimit(9999999)
 warnings.simplefilter(action='ignore', category=InsecureRequestWarning)
 
 
@@ -59,8 +57,8 @@ class URL:
 
 
 class DomainScanner:
-    MAX_DEPTH = 10  # Уменьшил для примера, можно вернуть ваше значение
-    DELAY = 0.1  # Небольшая задержка для вежливости
+    MAX_DEPTH = 10
+    DELAY = 0.1  # Небольшая задержка
     TIMEOUT = 10
     VERIFY_REQUESTS = False
     BASE_HEADERS = {
@@ -211,7 +209,6 @@ class DomainScanner:
             sorted_urls = sorted(self.visited_url_objs, key=lambda url_obj: url_obj.url)
             for url_obj in sorted_urls:
                 # Записываем данные в формате, который может быть легко прочитан
-                # Например: "https://www.vtb.ru/, 200, ('https://www.vtb.ru/', 'https://www.vtb.ru/about/')"
                 file_out.write(f"{url_obj.url}, {url_obj.response}, {url_obj.referrers}\n")
         print(f"Данные сохранены в {filepath}")
 
